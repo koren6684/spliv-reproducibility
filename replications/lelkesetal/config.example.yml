@@ -1,0 +1,6 @@
+data:
+  # Directory containing mergeddataset.RData and mergedcounty.RData.
+  path: "/absolute/path/to/lelkes-data-directory"
+environment_variable: "SPLIV_LELKES_DATA"
+package_path_environment_variable: "SPLIV_PACKAGE_PATH"
+fast_mode: true

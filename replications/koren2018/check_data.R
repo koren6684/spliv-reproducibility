@@ -1,0 +1,15 @@
+#!/usr/bin/env Rscript
+
+args <- commandArgs(trailingOnly = FALSE)
+file_arg <- grep("^--file=", args, value = TRUE)
+script_dir <- if (length(file_arg)) dirname(normalizePath(sub("^--file=", "", file_arg[[1]]), mustWork = TRUE)) else getwd()
+source(file.path(script_dir, "R", "helpers_koren_paths.R"))
+source(file.path(script_dir, "R", "helpers_koren_data.R"))
+data_path <- koren_find_panel_data(script_dir)
+dat <- koren_read_panel_data(data_path)
+koren_validate_variables(dat)
+cat("Koren data check passed.\n")
+cat("file:", data_path, "\nrows:", nrow(dat), "\ncolumns:", ncol(dat), "\n")
+cat("md5:", unname(tools::md5sum(data_path)), " (use shasum -a 256 for SHA-256)\n")
+cat("complete Table 3 maize rows:", sum(stats::complete.cases(dat[, c("acled_inc_sum", "maize_yield", "spi6", "gid", "year", "sparsebare")])), "\n")
+cat("complete Table 3 wheat rows:", sum(stats::complete.cases(dat[, c("acled_inc_sum", "wheat_yield", "spi6", "gid", "year", "sparsebare")])), "\n")

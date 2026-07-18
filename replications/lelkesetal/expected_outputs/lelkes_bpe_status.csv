@@ -1,0 +1,2 @@
+"application","bpe_status","reason","density_threshold","n_S","G_S","bpe_eligibility_passed","bpe_estimation_source"
+"Lelkes, Sood, and Iyengar Table 1","Not applicable","BPE eligibility failed for the proposed subset S (n_S=11491, G_S=42, varZ_S=0.897167, first-stage CI=[0.0169885, 0.0646507], equivalence margin=[-0.0150282, 0.0150282]). This is a conditional diagnostic using a pre-specified bottom-decile density subset. Transportability from very low-density counties to denser counties should be interpreted cautiously.",0.000631291136700312,11491,42,FALSE,NA

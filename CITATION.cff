@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "SPLIV reproducibility repository"
+message: "Please cite the spliv software package and the associated working paper when available."
+type: software
+authors:
+  - family-names: Koren
+    given-names: Ore
+    email: okoren@iu.edu
+version: 0.1.0
+repository-code: "https://github.com/koren6684/spliv-reproducibility"
+url: "https://github.com/koren6684/spliv-reproducibility"
+license: GPL-3.0-only
+# TODO: add an author-confirmed ORCID and DOI when available.

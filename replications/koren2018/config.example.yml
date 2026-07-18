@@ -1,0 +1,6 @@
+data:
+  # Do not commit this file with a local path filled in.
+  path: "/absolute/path/to/crop.dat.af.rnr3.dta"
+environment_variable: "SPLIV_KOREN_DATA"
+package_path_environment_variable: "SPLIV_PACKAGE_PATH"
+fast_mode: true

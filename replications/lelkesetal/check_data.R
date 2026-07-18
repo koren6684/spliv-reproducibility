@@ -1,0 +1,16 @@
+#!/usr/bin/env Rscript
+
+args <- commandArgs(trailingOnly = FALSE)
+file_arg <- grep("^--file=", args, value = TRUE)
+script_dir <- if (length(file_arg)) dirname(normalizePath(sub("^--file=", "", file_arg[[1]]), mustWork = TRUE)) else getwd()
+source(file.path(script_dir, "R", "helpers_lelkes_data.R"))
+data_files <- lelkes_find_data_files(script_dir)
+raw <- lelkes_load_raw_data(data_files)
+missing <- setdiff(lelkes_required_variables(), names(raw$merged))
+if (length(missing)) stop("Lelkes merged object is missing required variables: ", paste(missing, collapse = ", "), call. = FALSE)
+dat <- lelkes_prepare_analysis_data(raw)
+cat("Lelkes data check passed.\n")
+cat("merged:", data_files$merged, "\ncounty:", data_files$county, "\n")
+cat("raw merged rows:", nrow(raw$merged), "\nanalysis rows:", nrow(dat), "\nstate clusters:", length(unique(dat$state)), "\n")
+cat("mergeddataset MD5:", unname(tools::md5sum(data_files$merged)), "\n")
+cat("mergedcounty MD5:", unname(tools::md5sum(data_files$county)), "\n")
