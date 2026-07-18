@@ -54,7 +54,7 @@ days. Set `SPLIV_SIM_CORES` explicitly when running production simulations.
 Checkpoint files, logs, and generated tables/figures are ignored and are not
 part of the public repository.
 
-## Koren data and replication
+## Koren (2018) data and replication
 
 The Koren runner targets the original crop-yield/conflict panel. Obtain the
 authorized file from the original study archive and set:
@@ -71,7 +71,7 @@ The staged code requires `acled_inc_sum`, `maize_yield`, `wheat_yield`, `spi6`,
 expected 72,169 complete rows/6,680 clusters and checksum notes. Missing data
 produce an acquisition instruction, not a generic file-not-found error.
 
-## Lelkes data and replication
+## Lelkes et al (2017) data and replication
 
 Obtain the authorized archive for the Lelkes, Sood, and Iyengar application and
 set the directory containing both required RData files:
