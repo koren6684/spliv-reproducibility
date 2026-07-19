@@ -66,11 +66,13 @@ spliv_sim_paths <- function(root = NULL) {
   paths
 }
 
-spliv_sim_relative_package_path <- function(paths) {
-  .spliv_sim_normalize_path(file.path(paths$root, "..", "spliv"))
-}
-
 spliv_sim_source_helpers <- function(paths) {
+  shared_loader <- file.path(dirname(paths$root), "scripts", "helpers_spliv_package.R")
+  if (!file.exists(shared_loader)) {
+    stop("Could not find the shared SPLIV package loader at `", shared_loader, ".`", call. = FALSE)
+  }
+  source(shared_loader, local = FALSE)
+
   helper_files <- c(
     "helpers_packages.R",
     "helpers_parallel.R",

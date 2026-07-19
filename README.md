@@ -9,9 +9,10 @@ replication specifications.
 
 ## Quick environment and smoke test
 
-From the repository root:
+From the repository root, the standard public workflow is:
 
 ```bash
+Rscript -e 'renv::restore(prompt = FALSE)'
 Rscript scripts/00_check_environment.R
 Rscript scripts/01_run_smoke.R
 ```
@@ -20,19 +21,24 @@ The smoke test uses a tiny synthetic panel, runs baseline IV, a patterned UCI
 path, and confirmatory BPE diagnostics, and writes only ignored generated
 outputs under `simulations/`.
 
-## Restore the computational environment
-
-The project is pinned to `spliv` version 0.1.0 from the GitHub release tag
-`v0.1.0`, together with the package versions recorded in `renv.lock`.
-
-From the repository root, run:
+`renv::restore()` installs `spliv` into the reproducibility environment; a
+sibling `spliv` source checkout is not required. The equivalent direct install
+after the package tag exists is:
 
 ```r
-if (!requireNamespace("renv", quietly = TRUE)) {
-  install.packages("renv")
-}
+remotes::install_github("koren6684/spliv@v0.1.0")
+```
 
-renv::restore(prompt = FALSE)
+`SPLIV_PACKAGE_PATH` is an optional development override. If set, the scripts
+require `devtools` and load that source checkout; when unset, they load the
+installed package from the active renv library.
+
+```bash
+SPLIV_PACKAGE_PATH=/absolute/path/to/spliv Rscript scripts/01_run_smoke.R
+```
+
+The project is pinned to `spliv` version 0.1.0 and the package versions
+recorded in `renv.lock`.
 
 ## Pilot and full simulations
 

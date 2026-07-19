@@ -20,32 +20,10 @@ lelkes_prepare_dirs <- function(script_dir) {
   dirs
 }
 
-lelkes_package_path <- function(script_dir) {
-  env_path <- Sys.getenv("SPLIV_PACKAGE_PATH", unset = "")
-  if (nzchar(env_path)) {
-    return(normalizePath(env_path, mustWork = TRUE))
-  }
-  normalizePath(file.path(script_dir, "..", "..", "..", "spliv"), mustWork = TRUE)
-}
-
 lelkes_load_spliv <- function(script_dir) {
-  pkg_path <- lelkes_package_path(script_dir)
-  loader <- NA_character_
-  if (requireNamespace("devtools", quietly = TRUE)) {
-    devtools::load_all(pkg_path, quiet = TRUE)
-    loader <- "devtools::load_all"
-  } else if (requireNamespace("remotes", quietly = TRUE)) {
-    remotes::install_local(pkg_path, quiet = TRUE, upgrade = "never")
-    library(spliv)
-    loader <- "remotes::install_local"
-  } else {
-    install.packages(pkg_path, repos = NULL, type = "source")
-    library(spliv)
-    loader <- "install.packages(source)"
+  if (!exists("spliv_load_package", mode = "function", inherits = FALSE)) {
+    shared_loader <- file.path(dirname(dirname(script_dir)), "scripts", "helpers_spliv_package.R")
+    source(shared_loader, local = FALSE)
   }
-  version <- as.character(utils::packageVersion("spliv"))
-  message("Loaded spliv from: ", pkg_path)
-  message("spliv version: ", version)
-  message("spliv loader: ", loader)
-  list(path = pkg_path, version = version, loader = loader)
+  spliv_load_package(report = TRUE)
 }

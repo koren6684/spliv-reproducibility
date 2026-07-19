@@ -38,40 +38,12 @@ koren_project_root <- function(script_dir) {
   dirname(koren_update_root(script_dir))
 }
 
-koren_resolve_package_path <- function(script_dir) {
-  env_path <- Sys.getenv("SPLIV_PACKAGE_PATH", "")
-  if (nzchar(env_path)) {
-    return(normalizePath(env_path, mustWork = TRUE))
-  }
-  normalizePath(file.path(script_dir, "..", "..", "..", "spliv"), mustWork = TRUE)
-}
-
 koren_load_spliv <- function(script_dir) {
-  pkg_path <- koren_resolve_package_path(script_dir)
-  desc_path <- file.path(pkg_path, "DESCRIPTION")
-  version <- if (file.exists(desc_path)) {
-    as.character(read.dcf(desc_path)[1, "Version"])
-  } else {
-    NA_character_
+  shared_loader <- file.path(dirname(dirname(script_dir)), "scripts", "helpers_spliv_package.R")
+  if (!exists("spliv_load_package", mode = "function", inherits = FALSE)) {
+    source(shared_loader, local = FALSE)
   }
-
-  if (requireNamespace("devtools", quietly = TRUE)) {
-    devtools::load_all(pkg_path, quiet = TRUE, export_all = FALSE)
-    loader <- "devtools::load_all"
-  } else if (requireNamespace("pkgload", quietly = TRUE)) {
-    pkgload::load_all(pkg_path, quiet = TRUE, export_all = FALSE)
-    loader <- "pkgload::load_all"
-  } else {
-    stop(
-      "Neither `devtools` nor `pkgload` is installed. Install one of them or set up `spliv` on `.libPaths()`.",
-      call. = FALSE
-    )
-  }
-
-  message("Loaded spliv from: ", pkg_path)
-  message("spliv version: ", version)
-  message("spliv loader: ", loader)
-  list(path = pkg_path, version = version, loader = loader)
+  spliv_load_package(report = TRUE)
 }
 
 koren_find_panel_data <- function(script_dir) {

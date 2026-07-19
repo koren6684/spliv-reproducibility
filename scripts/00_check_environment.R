@@ -4,16 +4,14 @@ args <- commandArgs(trailingOnly = FALSE)
 file_arg <- grep("^--file=", args, value = TRUE)
 script_dir <- if (length(file_arg)) dirname(normalizePath(sub("^--file=", "", file_arg[[1]]), mustWork = TRUE)) else getwd()
 repo_root <- normalizePath(file.path(script_dir, ".."), mustWork = TRUE)
-pkg_path <- Sys.getenv("SPLIV_PACKAGE_PATH", file.path(repo_root, "..", "spliv"))
+source(file.path(script_dir, "helpers_spliv_package.R"), local = FALSE)
+package_info <- spliv_load_package(report = TRUE)
 
 cat("R:", R.version.string, "\n")
 cat("Repository:", repo_root, "\n")
-cat("Package path:", normalizePath(pkg_path, mustWork = FALSE), "\n")
-if (!file.exists(file.path(pkg_path, "DESCRIPTION"))) {
-  stop("The staged spliv package is missing. Set SPLIV_PACKAGE_PATH to its project-relative or absolute path.", call. = FALSE)
-}
+cat("Package path:", package_info$path, "\n")
 
-required <- c("devtools", "fixest", "testthat", "ggplot2", "knitr", "rmarkdown")
+required <- c("spliv", "fixest", "testthat", "ggplot2", "knitr", "rmarkdown")
 ok <- vapply(required, requireNamespace, logical(1), quietly = TRUE)
 if (any(!ok)) {
   stop("Missing required R package(s): ", paste(names(ok)[!ok], collapse = ", "), call. = FALSE)

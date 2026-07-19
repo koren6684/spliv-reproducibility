@@ -24,6 +24,8 @@ SPLIV_SIM_PROFILE=pilot SPLIV_SIM_CORES=1 Rscript 04_run_all_pilot.R
 SPLIV_SIM_PROFILE=full Rscript 99_run_all_full.R
 ```
 
-Set `SPLIV_PACKAGE_PATH` only when the package is not the sibling staged
-`../spliv` project. Set `SPLIV_SIM_OUTPUT_DIR` to a project-relative output
-directory to keep generated artifacts out of version control.
+The simulation scripts load the installed `spliv` package by default. Set
+`SPLIV_PACKAGE_PATH` only as a development override for a source checkout; it
+must point to an existing package project and requires `devtools`. Set
+`SPLIV_SIM_OUTPUT_DIR` to a project-relative output directory to keep generated
+artifacts out of version control.
