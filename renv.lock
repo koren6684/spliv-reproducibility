@@ -3741,7 +3741,7 @@
     },
     "spliv": {
       "Package": "spliv",
-      "Version": "0.1.0",
+      "Version": "0.1.1",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Patterned Sensitivity Analysis for IV with Fixed Effects",
@@ -3766,18 +3766,16 @@
       ],
       "Config/testthat/edition": "3",
       "VignetteBuilder": "knitr",
-      "URL": "https://koren6684.github.io/spliv, https://github.com/koren6684/spliv",
+      "URL": "https://koren6684.github.io/spliv/, https://github.com/koren6684/spliv",
       "BugReports": "https://github.com/koren6684/spliv/issues",
       "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.3",
-      "Author": "Ore Koren [aut, cre]",
-      "Maintainer": "Ore Koren <okoren@iu.edu>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "koren6684",
       "RemoteRepo": "spliv",
-      "RemoteRef": "v0.1.0",
-      "RemoteSha": "9fc1c69178efef89eb5b08d48d449e438a3ecac6"
+      "RemoteRef": "v0.1.1",
+      "RemoteSha": "02fde46eb0262cf8eecd3ee11d733bdba9295c72"
     },
     "stringi": {
       "Package": "stringi",
